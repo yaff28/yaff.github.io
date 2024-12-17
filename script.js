@@ -120,6 +120,33 @@ const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
 
+// Fungsi baru untuk redirect ke WhatsApp
+function sendWhatsApp() {
+    // Ambil nilai dari input
+    const fullname = document.querySelector('input[name="fullname"]').value;
+    const email = document.querySelector('input[name="email"]').value;
+    const message = document.querySelector('textarea[name="message"]').value;
+
+    // Nomor WhatsApp Anda
+    const phoneNumber = '6285782218495';
+
+    // Buat pesan dengan format
+    const waMessage = `Nama: ${fullname}%0AEmail: ${email}%0A%0APesan: ${message}`;
+    
+    // Buka WhatsApp Web dengan pesan
+    window.open(`https://wa.me/${phoneNumber}?text=${waMessage}`, '_blank');
+}
+
+// Modifikasi event listener form
+form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Mencegah form submit biasa
+    
+    // Cek validitas form
+    if (form.checkValidity()) {
+        sendWhatsApp(); // Panggil fungsi redirect WhatsApp
+    }
+});
+
 // add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
   formInputs[i].addEventListener("input", function () {
